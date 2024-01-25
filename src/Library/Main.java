@@ -40,25 +40,25 @@ public class Main {
 		title.setForeground(Color.decode("#1da1f2"));
 		frame.getContentPane().add(title, BorderLayout.NORTH);
 		
-		JLabel label1 = label("Phone Number:");
-		JLabel label2 = label("Email:");
-		JTextField phonenumber = textfield();
+		JLabel label1 = label("Email:");
 		JTextField email = textfield();
+		JLabel label2 = label("Password:");
+		JTextField password = textfield();
 		JButton login = button("Login");
 		JButton newUser = button("New User");
 		
 		login.addActionListener(new ActionListener() {		
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (phonenumber.getText().toString().matches("")) {
-					JOptionPane.showMessageDialog(new JFrame(), "Phone number cannot be empty!");
-					return;
-				}
 				if (email.getText().toString().matches("")) {
 					JOptionPane.showMessageDialog(new JFrame(), "Email cannot be empty!");
 					return;
 				}
-				login(phonenumber.getText().toString(), email.getText().toString(), frame);
+				if (password.getText().toString().matches("")) {
+					JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty!");
+					return;
+				}
+				login(email.getText().toString(), password.getText().toString(), frame);
 			}	
 		});
 		newUser.addActionListener(new ActionListener() {		
@@ -70,9 +70,9 @@ public class Main {
 		});
 		
 		panel.add(label1);
-		panel.add(phonenumber);
+		panel.add(email);
 		panel.add(label2);
-		panel.add(email);	
+		panel.add(password);	
 		panel.add(login);
 		panel.add(newUser);
 		
@@ -81,8 +81,8 @@ public class Main {
 		
 	}
 
-	private static void login(String phonenumber, String email, JFrame frame) {
-		int n = database.login(phonenumber, email);
+	private static void login(String email, String password, JFrame frame) {
+		int n = database.login(email, password);
 		if (n != -1) {
 			User user = database.getUser(n);
 			user.menu(database, user);
@@ -108,11 +108,11 @@ public class Main {
 		frame.getContentPane().add(title, BorderLayout.NORTH);
 		
 		JLabel label0 = label("Name:");
-		JLabel label1 = label("Phone Number:");
-		JLabel label2 = label("Email:");
 		JTextField name = textfield();
-		JTextField phonenumber = textfield();
+		JLabel label1 = label("Email:");
 		JTextField email = textfield();
+		JLabel label2 = label("Password:");
+		JTextField password = textfield();
 		JRadioButton admin = radioButton("Admin");
 		JRadioButton normaluser = radioButton("Normal User");
 		JButton createacc = button("Create Account");
@@ -132,9 +132,9 @@ public class Main {
 		panel.add(label0);
 		panel.add(name);
 		panel.add(label1);
-		panel.add(phonenumber);
-		panel.add(label2);
 		panel.add(email);
+		panel.add(label2);
+		panel.add(password);
 		panel.add(admin);
 		panel.add(normaluser);
 		panel.add(createacc);
@@ -151,12 +151,12 @@ public class Main {
 					JOptionPane.showMessageDialog(new JFrame(), "Name cannot be empty!");
 					return;
 				}
-				if (phonenumber.getText().toString().matches("")) {
-					JOptionPane.showMessageDialog(new JFrame(), "Phone number cannot be empty!");
-					return;
-				}
 				if (email.getText().toString().matches("")) {
 					JOptionPane.showMessageDialog(new JFrame(), "Email cannot be empty!");
+					return;
+				}
+				if (password.getText().toString().matches("")) {
+					JOptionPane.showMessageDialog(new JFrame(), "Password cannot be empty!");
 					return;
 				}
 				if (!admin.isSelected() && !normaluser.isSelected()) {
@@ -166,10 +166,10 @@ public class Main {
 				User user;
 				if (admin.isSelected()) {
 					user = new Admin(name.getText().toString(),
-							email.getText().toString(), phonenumber.getText().toString());
+							email.getText().toString(), password.getText().toString());
 				} else {
 					user = new NormalUser(name.getText().toString(),
-							email.getText().toString(), phonenumber.getText().toString());
+							email.getText().toString(), password.getText().toString());
 				}
 				frame.dispose();
 				database.AddUser(user);

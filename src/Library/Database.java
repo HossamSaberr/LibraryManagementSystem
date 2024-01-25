@@ -67,10 +67,10 @@ public class Database {
 		saveUsers();
 	}
 	
-	public int login(String phonenumber, String email) {
+	public int login(String email, String password) {
 		int n = -1;
 		for (User s : users) {
-			if (s.getPhoneNumber().matches(phonenumber) && s.getEmail().matches(email)) {
+			if (s.getEmail().matches(email) && s.getPassword().matches(password)) {
 				n = users.indexOf(s);
 				break;
 			}

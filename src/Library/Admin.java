@@ -17,8 +17,8 @@ public class Admin extends User {
 		};
 	}
 	
-	public Admin(String name, String email, String phonenumber) {
-		super(name, email, phonenumber);
+	public Admin(String name, String email, String password) {
+		super(name, email, password);
 		this.operations = new IOOperation[] {
 				new ViewBooks(),
 				new AddBook(),
@@ -46,7 +46,7 @@ public class Admin extends User {
 	}
 	
 	public String toString() {
-		return name+"<N/>"+email+"<N/>"+phonenumber+"<N/>"+"Admin";
+		return name+"<N/>"+email+"<N/>"+password+"<N/>"+"Admin";
 	}
 
 }
